@@ -1,12 +1,55 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HABITREE</title>
+  <title>메인 페이지</title>
 </head>
 <body>
-  <h1>Welcome to HABITREE 🌱</h1>
-  <p>습관으로 성공을 설계하다.</p>
+  <h1>메인 페이지</h1>
+  <a href="dashboard.html">대시보드로 이동</a>
+  <hr />
+  <h2>회원가입</h2>
+  <form id="signupForm">
+    <input type="email" id="signupEmail" placeholder="이메일" required />
+    <input type="password" id="signupPassword" placeholder="비밀번호" required />
+    <button type="submit">회원가입</button>
+  </form>
+
+  <h2>로그인</h2>
+  <form id="loginForm">
+    <input type="email" id="loginEmail" placeholder="이메일" required />
+    <input type="password" id="loginPassword" placeholder="비밀번호" required />
+    <button type="submit">로그인</button>
+  </form>
+
+  <script>
+    // 간단한 form submit 예시
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      const res = await fetch('/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      alert(data.message);
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const res = await fetch('/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      alert(data.message);
+    });
+  </script>
 </body>
 </html>
